@@ -1,0 +1,17 @@
+<view class="list">
+			<view class="info" wx:if="{{list.length < 1}}"> 暂无订单信息</view>
+			<view class="order" wx:for="{{list}}">
+				<view class="item" wx:for="{{item.orderInfo}}" wx:for-item="data">
+					<image :src="{{data.img}}"></image>
+					<view class="content">
+							<view class="title">{{data.name}}</view>
+							<view class="describe">{{data.price}}</view>
+							<view class="num">x{{data.num}}</view>
+					</view>
+				</view>
+				
+				<view class="bottom">
+					<view class="price">订单价格：￥{{item.sumPrice}}</view>
+				</view>
+			</view>
+		</view>

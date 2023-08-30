@@ -1,0 +1,30 @@
+@import '../common/common.wxss';
+
+page {
+  background-color: #ffffff;
+  font-family: "Helvetica Neue", "Hiragino Sans GB", "Microsoft YaHei", "\9ED1\4F53", Arial, sans-serif;
+  font-size: 32rpx;
+}
+
+.register-form {
+  padding: 50rpx;
+}
+
+.register-form input {
+  height: 90rpx;
+  border-bottom: 1rpx solid #ededed;
+  color: #999;
+  font-size: 28rpx;
+  padding: 0 20rpx;
+  margin-bottom: 30rpx;
+}
+
+.register-form button {
+  height: 90rpx;
+  line-height: 90rpx;
+  font-size: 32rpx;
+  border: none;
+  border-radius: 6rpx;
+  background-color: #f5c382;
+  color: #ffffff;
+}

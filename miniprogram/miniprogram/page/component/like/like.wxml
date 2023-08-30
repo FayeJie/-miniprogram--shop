@@ -1,0 +1,12 @@
+<!--page/component/like/like.wxml-->
+
+<view class="like-list">
+  <block wx:for="{{likes}}" wx:key="index">
+    <view class="like-item">
+      <image src="{{item.img}}"></image>
+      <text>{{item.name}}</text>
+      <text>{{item.price}}</text>
+      <!-- 其他收藏项的信息展示 -->
+    </view>
+  </block>
+</view>

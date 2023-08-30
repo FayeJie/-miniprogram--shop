@@ -1,0 +1,12 @@
+<!--page/component/login/login.wxml-->
+
+
+<view class="register-form">
+  <view class="form-item">
+    <input class="input" bindinput="getName" placeholder="请输入用户名"></input>
+  </view>
+  <view class="form-item">
+    <input class="input" bindinput="getPsw" placeholder="请输入密码"></input>
+  </view>
+  <button class="submit-button" bindtap="login">登录</button>
+</view>

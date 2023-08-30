@@ -1,0 +1,11 @@
+<!--page/register/register.wxml-->
+
+<view class="main">
+  <view class="register-form">
+    <input type="text" placeholder="请输入用户名" bindinput="getName" />
+    <input type="password" placeholder="请输入密码" bindinput="getPsw" />
+    <input type="password" placeholder="请确认密码" bindinput="" />
+    <button bindtap="register">注册</button>
+  </view>
+</view>
+

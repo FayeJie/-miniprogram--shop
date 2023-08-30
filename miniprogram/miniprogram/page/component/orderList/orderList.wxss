@@ -1,0 +1,48 @@
+.list{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.info{
+  margin-top: 50%;
+}
+.order{
+  width: 90%;
+  margin-top: 30rpx;
+  border-radius: 20rpx;
+  box-shadow: 0 0 20rpx 0rpx gainsboro;
+}
+
+.item{
+display: flex;
+background-color: #FBFBFB;
+margin-top: 10rpx;
+position: relative;
+
+}
+.item image{  
+width: 180rpx;
+height: 180rpx;
+margin-left: 20rpx;
+}
+.item .title{
+font-size: 30rpx;
+font-weight: 600;
+margin: 10rpx 0 0 16rpx;
+}
+.item .describe{
+font-size: 28rpx;
+margin: 8rpx 0 0 16rpx;
+}
+.item .num{
+position: absolute;
+top: 60rpx;
+  left: 620rpx;	
+}
+.bottom{
+background-color: #FBFBFB;
+height: 100rpx;
+line-height: 100rpx;
+   padding-left: 30rpx;
+  border-top: 2rpx solid gainsboro;
+}
