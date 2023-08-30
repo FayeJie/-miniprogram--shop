@@ -41,7 +41,9 @@ duration="{{duration}}"：切换动画时长。
 用户页面
 登录功能、注册功能
 其实这两个也是和之前一样添加读取数据库用户信息就好了，原理很简单
-// page/component/login/login.js
+
+// 
+page/component/login/login.js
 Page({
   data: {
     nickname: '',
@@ -171,6 +173,8 @@ onShow() {
   })
 }
 selectList 方法是商品选中事件的处理函数。通过 e.currentTarget.dataset.index 获取被点击商品的索引，然后在 carts 数组中将该商品的 selected 属性取反，实现选中和取消选中的切换。最后调用 this.getTotalPrice() 方法重新计算购物车商品的总价。
+
+
 selectList(e) {
   const index = e.currentTarget.dataset.index;
   let carts = this.data.carts;
@@ -182,6 +186,8 @@ selectList(e) {
   this.getTotalPrice();
 }
 deleteList 方法是删除购物车中当前商品的处理函数。通过 e.currentTarget.dataset.index 获取被点击商品的索引，并从 carts 数组中移除该商品。同时，调用 wx.cloud.database().collection().where().remove() 方法，从数据库中删除该商品的数据。如果购物车为空，则将 hasList 设置为 false，否则调用 this.getTotalPrice() 方法重新计算购物车商品的总价。
+
+
 deleteList(e) {
   const index = e.currentTarget.dataset.index;
   let carts = this.data.carts;
@@ -200,7 +206,11 @@ deleteList(e) {
     this.getTotalPrice();
   }
 }
+
+
 selectAll 方法是购物车全选事件的处理函数。通过取反 selectAllStatus 变量，实现全选和取消全选的切换。然后遍历 carts 数组，将所有商品的 selected 属性设置为 selectAllStatus。最后调用 this.getTotalPrice() 方法重新计算购物车商品的总价。
+
+
 selectAll(e) {
   let selectAllStatus = this.data.selectAllStatus;
   selectAllStatus = !selectAllStatus;
@@ -215,7 +225,11 @@ selectAll(e) {
   });
   this.getTotalPrice();
 }
+
+
 addCount 方法是增加商品数量的处理函数。通过 e.currentTarget.dataset.index 获取被点击商品的索引，并将该商品的数量加1。同时，调用 wx.cloud.database().collection().where().update() 方法，更新数据库中该商品的数量。最后调用 this.getTotalPrice() 方法重新计算购物车商品的总价。
+
+
 addCount(e) {
   const index = e.currentTarget.dataset.index;
   let carts = this.data.carts;
@@ -237,7 +251,11 @@ addCount(e) {
   });
   this.getTotalPrice();
 }
+
+
 minusCount 方法是减少商品数量的处理函数。通过 e.currentTarget.dataset.index 获取被点击商品的索引，并将该商品的数量减1。同时，调用 wx.cloud.database().collection().where().update() 方法，更新数据库中该商品的数量。最后调用 this.getTotalPrice() 方法重新计算购物车商品的总价。
+
+
 minusCount(e) {
   const index = e.currentTarget.dataset.index;
   let carts = this.data.carts;
@@ -259,16 +277,24 @@ minusCount(e) {
   });
   this.getTotalPrice();
 }
+
+
+
 getTotalPrice 方法用于计算购物车商品的总价。首先获取购物车列表数据 carts，然后遍历列表计算选中商品的总价，将结果保存到 total 变量中，并将 total 转为保留两位小数的字符串赋值给 totalPrice。最后通过调用 this.setData() 方法将计算结果更新到页面中。
+
+
 getTotalPrice() {
   let carts = this.data.carts;
   let total = 0;
   for (let i = 0; i < carts.length; i++) {
     if
 在页面布局部分，根据购物车是否有数据的判断，展示不同的布局。如果购物车有数据，展示购物车列表和底部的全选栏，否则显示购物车为空的提示
-3.4 收藏功能页面
+
+
+收藏功能页面
 其实也是读取收藏的商品并且显示，比购物车简单很多
 获取收藏数据
+
 onLoad() {
   const db = wx.cloud.database();
   const collection = db.collection('Collection');  // 指定集合名称
@@ -287,7 +313,9 @@ onLoad() {
       console.error('获取收藏数据失败', err);
     });
 }
+
 渲染页面
+
 <view class="like-list">
   <block wx:for="{{likes}}" wx:key="index">
     <view class="like-item">
@@ -300,11 +328,13 @@ onLoad() {
 </view>
 长按取消收藏
 我在like.wxml中的like-item元素上添加了bindlongpress事件，该事件绑定了deleteLike方法，并通过data-item-id属性传递了收藏食物的id，这样，当用户长按收藏项时，会弹出确认删除的提示框，确认后会从数据库中删除对应的收藏数据，并重新获取最新的收藏数据进行展示，我在删除操作后调用getLikes方法重新获取最新的收藏数据，以便实时更新页面内容。
+
+
 deleteLike(event) {
     const db = wx.cloud.database();
     const collection = db.collection('Collection');  // 指定集合名称
     const itemId = event.currentTarget.dataset.itemId;
-
+    
     wx.showModal({
       title: '提示',
       content: '确定要删除该收藏吗？',
@@ -331,8 +361,8 @@ deleteLike(event) {
  分类功能页面
         
 在 onLoad 函数中，获取分类数据和初始商品数据。
-javascript
-Copy code
+
+
 onLoad() {
   // 获取分类数据
   wx.cloud.database().collection("Type").get().then(res => {
@@ -358,9 +388,10 @@ onLoad() {
       console.log("获取数据失败", err)
     })
 },
+
+
 实现切换分类选项卡的功能，并根据选择的分类切换商品列表。
-javascript
-Copy code
+
 switchTab(e) {
   const self = this;
   this.setData({
@@ -385,8 +416,7 @@ switchTab(e) {
   }, 1)
 },
 页面渲染分类选项卡和对应的商品列表。
-html
-Copy code
+
 <view class="main">
   <view class="categroy-left">
     <view wx:for="{{category}}" wx:key="index" data-id="{{item.typeId}}" data-index="{{index}}" bindtap="switchTab" class="cate-list {{curIndex == index+1?'on':''}}">{{item.typeName}}</view>
@@ -415,8 +445,7 @@ Copy code
 详情页面
 
 在 onLoad 函数中，根据传入的 options.id 获取商品详情数据。
-javascript
-Copy code
+
 onLoad(options) {
   let id = options.id;
   wx.cloud.database().collection("FoodInfo")
@@ -468,6 +497,7 @@ addToCart() {
   }
   
   // 判断购物车中是否已存在该商品
+  
   const _ = wx.cloud.database().command;
   wx.cloud.database().collection('Cart')
     .where({
@@ -511,8 +541,7 @@ addToCart() {
     });
 },
 实现切换商品详情选项卡的功能。
-javascript
-Copy code
+
 bindTap(e) {
   const index = parseInt(e.currentTarget.dataset.index);
   this.setData({
@@ -528,8 +557,8 @@ like(e) {
 
   if (!this.data.isCollected) {
     // 添加收藏
+    
     const goods = this.data.goods;
-
     collection.add({
       data: id: goods._id,
         name: goods.name,
@@ -547,11 +576,11 @@ like(e) {
         console.error('收藏失败', err);
       }
     });
-  } else {
+  
+  
     // 取消收藏
     const goods = this.data.goods;
     const userId = wx.getStorageSync('Customer')._id;
-
     collection
       .where({
         id: goods._id,
@@ -567,7 +596,7 @@ like(e) {
         console.error('取消收藏失败', err);
       });
   }
-
+  
   this.setData({
     isCollected: !this.data.isCollected
   });
